@@ -1,0 +1,621 @@
+例 yum search array or ________ 找尋元件
+
+例 yum install _______ 選擇安裝元件
+
+yum指令說明
+在使用yum時，會將下載的東西，存放在/var/cache/yum目錄下。
+1.yum更新
+yum check-update
+#檢查能更新的套件有那些
+
+yum update
+#更新所有已安裝的套件，若在update後面接上套件名稱的話可針對該套件更新
+如yum update httpd
+
+yum upgrade
+#功能看update差不多，差別在於yum upgrade會連同一些過舊即將洮汰的套件也一起更新，大多使用在版本升級。
+
+1.1安裝移除套件
+yum install
+#安裝套件，install後面接要安裝的套件名稱，如yum install httpd。若要把所有相關的一起安裝的話可在最後加上「*」。如yum install httpd*
+
+yum remove
+#移除套件在這邊會考慮到相依性的問題，remove後可接要移除套件名稱，如yum remove httpd。若要把相關套件也一起移除的話可在最後加上「*」。如yum remove httpd*
+
+yum clean
+#清除安裝下載時的暫套件原始檔，大多是存放在/var/cache/yum，通常會下yum clean packages或是yum clean all，一次全刪除。
+
+1.2清暫存
+yum clean
+#清除安裝下載時的暫套件原始檔，大多是存放在/var/cache/yum
+
+yum clean packages
+#用來清除暫存(/var/cache/yum)目錄下的套件
+
+yum clean headers
+#用來清除暫存(/var/cache/yum)目錄下的 headers
+
+yum clean oldheaders
+#用來清除暫存(/var/cache/yum)目錄下的 oldheaders
+
+yum clearn all
+#直接把所有的站存都一次清除。
+
+1.3列清單
+yum list
+#列出所有的套件，若在list後面接套件名稱，則可單獨列出該套件。
+
+yum list updates
+#列出所有可以更新的套件
+
+yum list installed
+#列出所有已經安裝的套件
+
+yum list extra
+#列出所有已安裝但不在 yum Repository 內的套件
+
+1.4列出套件的相關資訊
+yum info
+#列出所有套件的相關資訊，若在info後接上套件名稱，則可單讀該套件相關資訊。
+如yum info httpd 或yum info httpd*，差別在於有加「*」則會把以httpd開頭的都列出來
+
+yum info updates
+#列出所有可以更新的套件資訊
+
+yum info installed
+#列出所有已安裝的套件資訊
+
+yum info extras
+#列出所有已安裝但不在 Yum Repository 內的套件資訊
+
+1.5搜尋功能
+yum search
+#搜尋所有相關的套件，如yum search httpd，在從中找到所需要的套件。類似關鍵字的用途
+
+systemctl status cockpit.socket 開啟主機伺服器管理網頁
+
+systemctl enable --now cockpit.socket 開啟伺服器主機功能
+
+init 3 文字介面
+
+init 5 圖形介面
+
+ctrl+alt+f1 f3 文字介面.圖形介面
+
+shutdown -h now 關機
+
+https://10.10.53.214:9090/
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------2021.4.28-------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+linux 忘記密碼
+
+
+
+開機選單按e進入編輯模式
+
+找到linux xx/boot/vm...結尾空格輸入rd.break 再輸入ctrl+x啟動系統 可以啟動switch root stage
+
+輸入mount -o remount,rw /sysroot (rw 可讀寫)
+
+    chroot /sysroot
+
+    passwd
+    輸入密碼第一次
+    輸入密碼第二次
+
+    LANG=C
+
+    password root
+
+    touch / .autorelabel
+
+    exit
+
+    mount -o remount,ro /sysroot (ro 唯獨)
+
+    exit
+
+
+
+linux基本指令
+
+
+新增檔案 touch、vim、nano
+
+新增目錄 mkdir
+
+
+修改檔案 cp(複製)、mv(移動)
+
+修改目錄
+
+
+刪除檔案 rm、rm -f(強制刪除)
+
+刪除目錄 rmdir、rm -fr
+
+
+查詢檔案 ll、ls、find
+
+查詢目錄
+
+
+
+mv test1 /tmp
+
+mv  /tmp/test1 ./
+
+
+指令名稱：head
+功能說明：head指令會讀取所給予檔案的內容，並將其內容的最前面部份作標準輸出。預設為10行。
+語法：head [options] file
+
+[options]
+-c：--bytes=N 指定輸出開頭的 "N" 個字元組。
+-n：--lines=N 指定輸出開頭的 "N" 行。
+-q： --quiet, --silent 不輸出檔案名稱的標頭。
+-v：一定顯示含有檔案名稱的標頭。
+
+範例：
+1.列出fileA最前面10行內容
+#head fileA
+2.列出fileA最前面20列內容
+#head -n 20 fileA
+3.列出檔案fileA最前面200Bytes內容
+#head -c 200 fileA
+
+
+
+
+
+指令名稱：tail
+功能說明：tail與head指令類似，但內容輸入範圍前後相反。tail指令會讀取所檔案的內容，並將其內容的最後部份作標準輸出。預設為10列。
+語法：tail [options] file
+
+[options]
+-c：--bytes=N 指定輸出檔案最後的 "N" 個字元組。
+-n：--lines=N 指定輸出檔案最後 "N" 行。
+-f：持續顯示檔案更新的資訊。
+-q：--quiet, --silen 不輸出檔案名稱的訊息。
++n：從第n 行開始顯示到檔案結尾。
+
+範例：
+1.列出fileA最後面的內容
+#tail fileA
+2.列出副檔案為.txt的所有檔案最後面5列內容
+#tail -n 5 *.txt
+3.列出fileA最面200Bytes內容
+#tail -c 200 fileA
+4.以系統管理者身份，監控持續成長的紀錄檔/var/log/message
+#tail -f /var/log/message
+
+進階範例：
+1.看/etc/passwd檔案的16～30行
+#head -n 30 /etc/passwd | tail -n 15
+
+
+
+
+指令名稱：cat
+功能說明：cat指令會讀取所給予檔案的內容，並將其內容作標準輸出。將由檔案或標準輸入讀取的資料連結起來，並在標準輸出顯示結果，如果沒有指定檔案或檔案是 -，則由標準輸入讀取資料。
+名詞解釋：1.標準輸入：keyboard、file。2.標準輸出：螢幕。3.標準錯誤：命令提示錯誤訊息。
+語法：cat [options] file
+
+[options]
+-n:--numbe 輸出時加上行號。
+-b:--number-nonblank 輸出時在非空白行加上行號。
+-E:--show-ends 在每一行最後顯示 $ 記號。
+-s:--squeeze-blank 不連續輸出超過一行空行。
+-T:--show-tabs 將 TAB 字元顯示為 ^I。
+-v:--show-nonprinting 除了換行及TAB 字元外，使用^及M-表示法顯示字元。
+-e:等於 –vE。
+-t:等於 –vT。
+-A:--show-all 等於 –vET。
+
+範例：
+fileA內容為
+======
+one
+two
+======
+fileB內容為
+======
+three
+four
+======
+1.顯示檔案fileA的內容
+#cat fileA
+2.同時列出fileA和fileB的內容
+#cat fileA fileB
+3.列出fileA的內容，並在每列開頭加上編號
+#cat -n fileA
+4.將fileA和fileB合併為一個檔案fileC
+#cat fileA fileB > fileC
+
+＊[>]：覆蓋
+[<]：覆蓋
+[>>]：累加
+[<<]：指定結束符號
+範例：
+1.在按下ctal+d前，keyboard所輸入導入存到abfile中
+#cat > ab
+2.將標準輸入(keyboard)存到ab，在複製ab成為ac
+#cat ac
+相當於#cp ab ac
+3.標準輸入(keyboard)存到ab，直到最後一行為「peter」才直接結束標準輸入。(此時peter這幾個字母並沒有存到ab中)
+#cat
+
+
+
+
+指令名稱：mv
+功能說明：針對檔案或目錄，移動或更改名稱
+語法：mv [options] [source file or directory] [target file or directory]
+
+[options]
+-f:--force若目的地的檔案或目錄已經存在，則直接強制覆蓋。
+-i：執行前提供使用者確認。
+-u：--update 只在來源檔案比目的地檔案新，或目的地檔案不存在時才會移動。
+-v：顯示進行步驟。
+
+範例：
+1.將檔案fileA改名為fileB
+#mv fileA fileB
+2.將檔案fileA移動到目錄tech下，若檔案有重複，則直接覆蓋。
+# mv -f fileA tech
+
+
+
+
+指令名稱：rm
+功能說明：刪除檔案或目錄
+語法：rm [options] file
+
+[options]
+-d：直接刪除一個目錄，既使目錄不是空的，super user 才可以用。
+-f：--force 就是強制刪除檔案或目錄。
+-i：執行前提供使用者確認。
+-r, -R：--recursive遞迴處理，將指定的目錄下所有的檔案與子目錄一併處理。
+
+範例：
+1.刪除目錄tech中所有的檔案和子目錄
+#rm -r tech
+
+
+
+
+
+指令名稱：cp
+功能說明：複製檔案或目錄
+語法：cp [options] [source file] [target file]
+cp [options] [source files] [target directory]
+
+[options]
+-f：--force強行複製檔案與目錄，不管目的檔案或目錄是否已經存在。
+-i：--interactive覆寫檔案前需要確認。
+-p：保留來源檔案或目錄的屬性，包括擁有者、群組、權限與時間。
+-R, -r：--recursive遞迴處理，針對目錄下的所有檔案與子目錄一併處理，可以利用它進行目錄的copy。
+-v：顯示指令執行過程。
+
+-a：--archive 等於 -dpR
+-d：等於 --no-dereference --preserve=link，在進行 copy 的時候，如果是 copy 到 link檔案，若不加任何參數，則預設情況中會將 link 到的原始檔案 copy 到目的地，若加 -d 時，則 link 檔案可原封不動的將 link 這個捷徑其拷貝到目的地！(也就是說不使用這個參數會將符號連接的關聯解除)。
+-l, --link 連結而非複製檔案。
+-s 做成連結檔，而不 copy 之意！與 ln 指令相同功能。
+-u, --update 如果來源檔比較新，或者是沒有目的檔，那麼才會進行 copy 動作！可用於備份的動作中。
+
+
+
+
+
+指令名稱：scp
+功能說明：資料傳輸時有加密，通常用來做遠端拷貝
+語法：scp [options] user@sourceip:file1 user@targetip:target_directory
+
+[options]
+-l：限制拷貝時使用的頻寬(Kbit/s)。
+-P：指定連接通信埠號，預設是22 port。
+-c：cipher
+-F：ssh_config
+-i：identity_file
+-o：ssh_option
+-S：program
+
+1.port0~1023為特權port；port1024~65535非特權port。
+2.port決定在/etc/service
+3.cliect的port隨機在1024~65535中選一個，server的port為特權port，例如：ssh port 22、telnet port 23。
+
+
+
+
+指令名稱：mkdir
+功能說明：建立目錄
+語法：mkdir [options] directoryname
+[options]
+-m mode： --mode=模式 設定權限 <模式> (類似 chmod)，而不是 rwxrwxrwx 減 umask。
+-p： --parents 需要時建立上層目錄，如目錄早已存在則不當作錯誤
+-v： --verbose 每次建立新目錄都顯示訊息。
+
+範例：
+1.建立名稱為tech的目錄，但只允許擁有者有rwx的權限
+#mkdir -m 700 tech
+
+2.建立/home/tech/test目錄，但目前/home底下沒有任何目錄
+#mkdir -p /home/tech/test
+
+
+
+
+指令名稱：ls
+功能說明：ls可以列印出目錄內容，包括檔案與子目錄的名稱。類似DOS下的dir指令。
+語法：ls [options] file or directiory
+
+[options]
+-l：顯示有關檔案的詳細資訊
+-a,--all：顯示所有檔案和目錄，包括以"." 字元開始的檔案、現行目錄"."、與上層目錄".."。
+-A,--almost-all：列出除了 . 及 .. 以外的任何項目。
+-R：遞回(列出所有子目錄內容)。
+-h：以檔案容量KB、MB、GB單位來顯示檔案和目錄的大小。
+
+-b, --escape：以八進位溢出序列表示不可列印的字元。
+-c：配合 -lt：根據 ctime 排序及顯示 ctime(檔案狀態最後更改的時間)配合；配合-l ：顯示 ctime 但根據名稱排序；否則根據 ctime 排序。
+-F：檔名之後加上 /標示為目錄 *為執行檔案, @為連結符號 |為FIFO 以及 =標示為socket。
+-r：以反向順序列出。
+-t：依據修改時間排序。
+-d：只列出目錄。
+-i：印出每個檔案的 inode 編號。
+-s：列出所有檔案的大小。
+-S：依檔案大小排序。
+-u：配合 -lt：顯示存取時間而且依存取時間排序；配合 -l：顯示存取時間但根據名稱排序；否則：根據存取時間排序。
+
+
+
+
+指令名稱：pwd
+功能說明：pwd指令可以立刻知道目前所在工作目錄的絕對路徑名稱
+語法：pwd [options]
+
+[options]
+-P：排除軟連結，回應真正目錄位置。
+-L：預設值。
+
+範例：
+1.顯示現行工作目錄名稱
+#pwd
+
+
+
+
+
+
+指令名稱：cd
+功能說明：切換目錄
+如果沒有引數，則表示切換至家目錄，如果目錄位置不在，則去搜尋CDPATH 變數。
+目錄的表示方式可以使用絕對路徑與相對路徑。
+語法：cd [options] [dir]
+
+[options]
+-P：排除軟連結，切換到真正目錄位置。
+-L：預設值。
+-：快速回到之前的目錄，與環境變數OLDPWD有關。
+
+範例：
+1.切換至使用者家目錄。
+#cd
+2.切換至使用者家目錄(~ 表示家目錄)。
+#cd ~
+3.切換至目前所在目錄 (. 表示目前所在目錄)。
+#cd .
+4.切換至上一層目錄(.. 表示上一層目錄。
+#cd ..
+5.切換至之前的目錄。
+#cd -
+6.切換至根目錄。
+#cd /
+7.切換至 /etc/rc.d/init.d 目錄 (絕對路徑)
+#cd /etc/rc.d/init.d
+8.目前在/etc/rc0.d目錄，切換至上層目錄/etc/下面的 rc3.d 目錄 (相對路徑)
+#cd ../rc3.d
+
+
+
+
+指令名稱：touch
+功能說明：建立一各無內容的新檔案或改變目錄與檔案建立的時間
+語法：touch [options] file
+
+[options]
+-a：只改變存取時間。
+-m：只改變修改時間。
+-t：使用 [年份][月份][日期][小時][分鐘].[秒]格式的時間而非目前的時間。
+
+-c：不要建立檔案。
+-d：用字串的方式表示時間。
+
+範例：
+1.建立一個新檔案，檔名為fileA
+#touch fileA
+2.更改檔案file的時間為2001年12月25日12時30分59秒
+#touch -t 200112251230.59
+
+
+
+
+
+指令名稱：wc
+功能說明：wc指令可以計算檔案的列數、字數、及位元數。
+語法：wc [options] file
+21. wc 列出檔案的行數、單字數、位元組數
+
+[options]
+-c：--bytes 顯示位元數統計。
+-m：--chars 顯示字母數統計。
+-l：--lines 顯示行數統計。
+-L：--max-line-length 印出最長一行的字數。
+-w：--words 顯示單字數(word)統計。
+
+範例：
+1.計算fileA文字檔的列數、字數及byte數
+#wc fileA
+2.計算fileA的列數
+#wc -l fileA
+
+
+
+
+
+指令名稱：od
+功能說明：以八進位的方式讀取檔案內容，當然也可用10 進位、16 進位或ASCII 碼來顯示
+語法：od [options] file
+
+[options]
+-b：等於-t oC，顯示八進位位元組。
+-a：等於–t a，顯示 ASCII 字元或以 ASCII 表示的控制字元。
+-c：以 ASCII 字元的方式印出，若有下列字元時以另一種符號輸出：
+字 元-->符 號
+null-->\0
+backspace-->\b
+form-feed-->\f
+new-line-->\n
+return-->\r
+tab-->\t
+其餘無法印出的字元則以 3 個 8 進位數字表示 ASCII 值。
+
+
+
+
+
+
+指令名稱：nl
+功能說明：在檔案的每一列開頭都差入列編號。
+語法：nl [options] file
+
+[options]
+-b：插入檔案內容的列編號
+a：每一行都加上行號。
+t：只有非空白的行才加上行號。
+n：每一行都不加行號。
+p：正規表示式，只有符合 <正規表示式> 的每一行才加上行號。
+-i：每行的行號增加量。
+-f：決定將註腳加上行號的 <方式>，<方式>請看 –b 的說明。
+-h：決定將標頭加上行號的 <方式>，<方式>請看 –b 的說明。
+-l：將指定 <行數>的空行合併成一行。
+-n：根據 <格式> 加上行號，在選項裡中的格式可以是以下其中一個：
+ln 向左對齊，前面不加零補位。
+rn 向右對齊，前面不加零補位。
+rz 向右對齊，前面加零補位。
+
+ls -al mytest* | wc -1
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------2021.5.3-------------------------------------------------------------------------------------------------------------
+
+
+
+          User       Group
+
+新增    useradd     groupadd
+
+修改    usermod     groupmod
+        passwd      gpasswd
+
+
+刪除    userdel     groupdel
+        
+查詢    is , w , who , whoami 
+
+su - [新增使用者名稱]
+
+grep [新增使用者名稱] /etc/passwd
+                      /etc/group
+
+id [新增使用者名稱]
+
+userdel -r [新增使用者名稱]
+
+echo "you password" | passwd --stdin [新增使用者名稱]
+
+
+命 令: newgrp
+
+功能說明：切換用戶所在用戶組命令
+
+語法：newgrp [群組名稱]
+
+補充：如果一個用戶同時隸屬於兩個或兩個以上分組，需要切換到其它使用者組來執行一些操作，就用到了newgrp命令切換當前登陸所在組。
+[root@linuxso.com ~]#groupadd test
+[root@linuxso.com ~]#useradd -G test1 linuxso //添加新用戶並且添加到組test裡
+[root@linuxso.com ~]#id linuxso
+
+uid=505(linuxso) gid=505(linuxso) groups=505(linuxso),504(test) //屬於兩個組 linuxso和test
+[root@linuxso.com ~]#su - linuxso
+
+[linuxso@linuxso.com ~]$id
+uid=505(linuxso) gid=505(linuxso) groups=504(test),505(linuxso) //當前組gid505 linuxso組
+
+[linuxso@linuxso.com ~]$newgrp test
+
+[linuxso@linuxso.com ~]$id
+uid=505(linuxso) gid=504(test) groups=504(test),505(linuxso) //切換後為test組,此時將擁有test組的許可權。
+
+
+
+        檔案                 目錄
+
+r     內容可讀               列表
+
+w      可編輯             可新增/刪除
+  (不一定有刪除權限)
+
+x      可執行             可執行shell
+
+
+
+chown 修改檔案擁有者
+
+chown [擁有者] [資料夾]
+
+
+
+chgrp 修改檔案擁有的群組
+
+chgrp [擁有者] [資料夾]
+      or
+chown :[擁有者] [資料夾]
+
+
+
+chmod 搭配數字法修改權限
+
+r ==> read    ==> 22 ==> 4
+w ==> write   ==> 21 ==> 2
+x ==> eXecute ==> 20 ==> 1
+
+chmod u+x,g+x []
+
+chmod g-rx []
+
+chmod ugo-r []
+
+chmod u=rw-,g=r--,o=--- []
+
+top (linux的工作管理員)
